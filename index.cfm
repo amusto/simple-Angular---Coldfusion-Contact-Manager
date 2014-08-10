@@ -1,3 +1,18 @@
+    <cffunction name="getWebPath" access="public" output="false" returntype="string" hint="Gets the absolute path to the current web folder."> 
+        <cfargument name="url" required="false" default="#getPageContext().getRequest().getRequestURI()#" hint="Defaults to the current path_info" /> 
+        <cfargument name="ext" required="false" default="\.(cfml?.*|html?.*|[^.]+)" hint="Define the regex to find the extension. The default will work in most cases, unless you have really funky urls like: /folder/file.cfm/extra.path/info" /> 
+        <!---// trim the path to be safe //---> 
+        <cfset var sPath = trim(arguments.url) /> 
+        <!---// find the where the filename starts (should be the last wherever the last period (".") is) //---> 
+        <cfset var sEndDir = reFind("/[^/]+#arguments.ext#$", sPath) /> 
+        <cfreturn left(sPath, sEndDir) /> 
+    </cffunction>
+
+	<cfset request.defaultURL = getWebPath()>
+    <cfoutput>
+      <base href="#request.defaultURL#">
+    </cfoutput>
+
 <cfif isdefined("url.resetApp")>
     <cfscript>
         application.contacts = [
@@ -46,15 +61,12 @@
 
 </cfif>
 
-
-
 <!DOCTYPE html>
 
 <!-- define angular app -->
 <html ng-app="contactsApp">
 
 <head>
-  <base href="/">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
 
@@ -82,7 +94,9 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">Contacts application</a>
+      <cfoutput>
+        <a class="navbar-brand" href="#request.defaultURL#">Contacts application</a>
+      </cfoutput>
       </div>
 
     </div>

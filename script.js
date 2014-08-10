@@ -115,6 +115,9 @@
                 })
             }
         }
-
+		
+		$scope.cancelContact = function(){
+                    $location.path("/");
+			}
 
     });
