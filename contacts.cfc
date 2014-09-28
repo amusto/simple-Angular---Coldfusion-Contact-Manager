@@ -2,7 +2,6 @@
 
 <cffunction name="getContacts" access="remote" returnType="any">
 
-    <cfif not isdefined("application.contacts")>
         <cfscript>
             application.contacts = [
                 {
@@ -42,13 +41,56 @@
                 }
             ];
         </cfscript>
-    </cfif>
 
-        <cfset data = serializeJSON(application.contacts)>
+        <cfset data = serializeJSON(contacts)>
         <cfcontent type="application/json" reset="true"><cfoutput>#data#</cfoutput>
 
 </cffunction>
 
+<cffunction name="reloadContacts" access="remote" returnType="any">
+        <cfscript>
+            contacts = [
+                {
+                    "fullname": "Kasey Koch",
+                    "email": "DKahle@in.net",
+                    "phone": "1-689-674-937"
+                },
+                {
+                    "fullname": "Effram Koehn",
+                    "email": "NLeeman@mattis.com",
+                    "phone": "816-800-8094"
+                },
+                {
+                    "fullname": "Colleen Harkey",
+                    "email": "EFrutos@tempor.com",
+                    "phone": "513-643-2883"
+                },
+                {
+                    "fullname": "Guy Craig",
+                    "email": "PDelatorre@risus.net",
+                    "phone": "106-311-0309"
+                },
+                {
+                    "fullname": "Bernard Young",
+                    "email": "BGibson@libero.net",
+                    "phone": "428-700-7597"
+                },
+                {
+                    "fullname": "Isabel Reviews",
+                    "email": "IMortimore@et.com",
+                    "phone": "278-884-7653"
+                },
+                {
+                    "fullname": "Sukanya Alua",
+                    "email": "IAbney@vestibulum.org",
+                    "phone": "932-521-9966"
+                }
+            ];
+        </cfscript>
+
+        <cfset data = serializeJSON(contacts)>
+        <cfcontent type="application/json" reset="true"><cfoutput>#data#</cfoutput>
+</cffunction>
 
  <cffunction name="AddContact" returnformat="plain" access="remote" output="true" hint="Add a contact to the JSON array" >
     <cfargument name="fullName" type="any" required="yes">

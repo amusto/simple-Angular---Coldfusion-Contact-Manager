@@ -84,6 +84,16 @@
             });
         };
 
+        $scope.reloadContacts = function(){
+            //$.getJSON('contacts.cfc?method=getContacts',{},function(data){
+            $.getJSON('http://blog.armandomusto.com/code_samples/coldfusion_angular_contact_manager/contacts.cfc?method=reloadContacts',{},function(data){
+                $scope.$apply(function(){
+                    $scope.contacts = data;
+                    console.log($scope.contacts);
+                });
+            });
+        };
+
         $scope.getContact = function(contactId){
             $scope.contactId = contactId;
             $.getJSON('http://blog.armandomusto.com/code_samples/coldfusion_angular_contact_manager/contacts.cfc?method=getContacts',{},function(data){
