@@ -3,7 +3,7 @@
 <cffunction name="getContacts" access="remote" returnType="any">
 
         <cfscript>
-            application.contacts = [
+            contacts = [
                 {
                     "fullname": "Kasey Koch",
                     "email": "DKahle@in.net",
